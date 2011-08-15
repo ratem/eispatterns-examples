@@ -27,7 +27,7 @@ class CreditAnalystDecorator(Decorator):
         except:
             raise AssociationError('Person must be previously decorated by Employee Decorator')
         self.decorated = decorated
-        self.decorated.decorators[self.__doc__] = self
+        self.decorated.decorate(self)
 
     @classmethod
     @rule('association')
