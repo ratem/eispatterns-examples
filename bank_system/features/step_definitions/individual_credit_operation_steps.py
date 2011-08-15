@@ -4,8 +4,6 @@ from should_dsl import should
 from domain.node.person import Person
 from domain.node.machine import Machine
 from domain.movement.process import Process
-from domain.movement.transformation import Transformation
-from domain.movement.transportation import Transportation
 from bank_system.decorators.credit_analyst_decorator import CreditAnalystDecorator
 from bank_system.decorators.bank_account_decorator import BankAccountDecorator
 from bank_system.decorators.employee_decorator import EmployeeDecorator
