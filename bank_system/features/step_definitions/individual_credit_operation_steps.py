@@ -59,7 +59,7 @@ def then_a_new_loan_request_with_the_account_number_and_desired_value_is_created
     configurator = StateMachineConfigurator(template)
     configurator.configure(world.an_individual_credit_operation)
     #configures the loan request creation
-    the_movement = world.an_individual_credit_operation.configure_activity(world.credit_analyst.decorated, world.credit_analyst.decorated, world.an_individual_credit_operation.create_loan_request, CreditAnalystDecorator.create_loan_request)
+    the_movement = world.an_individual_credit_operation.configure_activity_logger(world.credit_analyst.decorated, world.credit_analyst.decorated, world.an_individual_credit_operation.create_loan_request, CreditAnalystDecorator.create_loan_request)
     #runs the loan request creation
     the_movement.context = world.an_individual_credit_operation.run_activity(the_movement, world.credit_analyst, world.account, desired_value)
     world.an_individual_credit_operation.current_state() |should| equal_to('request_created')
@@ -79,7 +79,7 @@ def and_there_is_a_loan_request_of_account_account_number_with_desired_value_des
 @step(u'When I pick to analyse the loan request of account (.+)')
 def when_i_pick_to_analyse_the_loan_request_of_account_account_number(step, account_number):
     #configure
-    the_movement = world.an_individual_credit_operation.configure_activity(world.credit_analyst.decorated, world.credit_analyst.decorated, world.an_individual_credit_operation.analyst_select_request, CreditAnalystDecorator.analyse)
+    the_movement = world.an_individual_credit_operation.configure_activity_logger(world.credit_analyst.decorated, world.credit_analyst.decorated, world.an_individual_credit_operation.analyst_select_request, CreditAnalystDecorator.analyse)
     #run
     the_movement.context = world.an_individual_credit_operation.run_activity(the_movement, world.credit_analyst, world.account.number)
     world.an_individual_credit_operation.current_state() |should| equal_to('request_analyzed')
@@ -113,7 +113,7 @@ def then_a_loan_of_value_value_for_account_account_number_is_generated(step, val
     #pick
     loan_request = world.credit_analyst.decorated.output_area[world.account.number]
     #configure
-    the_movement = world.an_individual_credit_operation.configure_activity(world.credit_analyst.decorated, world.credit_analyst.decorated, world.an_individual_credit_operation.loan_accepted, CreditAnalystDecorator.create_loan)
+    the_movement = world.an_individual_credit_operation.configure_activity_logger(world.credit_analyst.decorated, world.credit_analyst.decorated, world.an_individual_credit_operation.loan_accepted, CreditAnalystDecorator.create_loan)
     #run
     the_movement.context = world.an_individual_credit_operation.run_activity(the_movement, world.credit_analyst, loan_request)
     #checks
@@ -128,7 +128,7 @@ def and_the_value_is_moved_to_the_account_account_number(step, account_number):
 @step(u'And the loan is moved to the account (.+) historic')
 def and_the_loan_is_moved_to_the_account_account_number_historic(step, account_number):
     #configure
-    the_movement = world.an_individual_credit_operation.configure_activity(world.credit_analyst.decorated, world.account.decorated, world.an_individual_credit_operation.time_to_transfer_value, CreditAnalystDecorator.move_loan_to_account)
+    the_movement = world.an_individual_credit_operation.configure_activity_logger(world.credit_analyst.decorated, world.account.decorated, world.an_individual_credit_operation.time_to_transfer_value, CreditAnalystDecorator.move_loan_to_account)
     #run
     loan_key = world.credit_analyst.register
     the_movement.context = world.an_individual_credit_operation.run_activity(the_movement, world.credit_analyst, loan_key, world.account)
@@ -169,7 +169,7 @@ def then_the_loan_request_is_moved_to_the_account_account_number_historic(step, 
 @step(u'And an refusal letter is sent to the account holder')
 def and_an_refusal_letter_is_sent_to_the_account_holder(step):
     #configure
-    the_movement = world.an_individual_credit_operation.configure_activity(world.account.decorated, world.account.decorated, world.an_individual_credit_operation.loan_refused, BankAccountDecorator.send_message_to_account_holder)
+    the_movement = world.an_individual_credit_operation.configure_activity_logger(world.account.decorated, world.account.decorated, world.an_individual_credit_operation.loan_refused, BankAccountDecorator.send_message_to_account_holder)
     #run
     value = world.credit_analyst.decorated.output_area[world.account.number].value
     message = 'Sorry, your loan request of value %f was refused.' % value
