@@ -60,14 +60,14 @@ def then_a_new_loan_request_with_the_account_number_and_desired_value_is_created
     configurator.configure(world.an_individual_credit_operation)
     #configures the loan request creation
     the_movement = world.an_individual_credit_operation.configure_activity_logger(world.credit_analyst.decorated, world.credit_analyst.decorated, world.an_individual_credit_operation.create_loan_request, CreditAnalystDecorator.create_loan_request)
+    world.an_individual_credit_operation.movements |should| contain(the_movement.activity.__name__)
     #runs the loan request creation
     the_movement.context = world.an_individual_credit_operation.run_activity(the_movement, world.credit_analyst, world.account, desired_value)
     world.an_individual_credit_operation.current_state() |should| equal_to('request_created')
-    world.an_individual_credit_operation.movements |should| contain(the_movement.activity.__name__)
 
 @step(u'And the new loan request is associated to the Credit Analyst')
 def and_the_new_loan_request_is_associated_to_the_credit_analyst(step):
-    #... this association is done during loan creation, just checking
+    #... this association was done during loan creation, just checking
     world.a_person.input_area[world.account.number].analyst |should| be(world.credit_analyst)
 
 #Scenario Credit Analyst analyses the individual customer loan request
