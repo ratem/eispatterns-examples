@@ -10,12 +10,13 @@ class LoanRequestSpec(unittest.TestCase):
     def it_check_associations_with_bank_account_and_credit_analyst(self):
         an_account = BankAccountDecorator('12345-6')
         an_analyst = CreditAnalystDecorator('abcde-f')
+        (LoanRequest, 'I am not an account', 123, an_analyst) |should| throw(AssociationError)
+        (LoanRequest, an_account, 123, 'I am not an analyst') |should| throw(AssociationError)
+        (LoanRequest, an_account, 123, an_analyst) |should_not| throw(AssociationError)
+
         #With should-dsl I can avoid doing this:
         #        try:
         #            a_loan_request = LoanRequest('I am not an account', 123, an_analyst)
         #        except AssociationError:
         #            pass
-        (LoanRequest, 'I am not an account', 123, an_analyst) |should| throw(AssociationError)
-        (LoanRequest, an_account, 123, 'I am not an analyst') |should| throw(AssociationError)
-        (LoanRequest, an_account, 123, an_analyst) |should_not| throw(AssociationError)
 
