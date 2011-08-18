@@ -40,7 +40,7 @@ class CreditAnalystDecorator(Decorator):
     def create_loan_request(self, account, value):
         ''' creates a loan request '''
         loan_request = LoanRequest(account, value, self)
-        #Puts the loan_request to the input area
+        #Places the loan_request in the node's input area
         self.decorated.input_area[loan_request.account.number] = loan_request
 
     #stupid credit analysis, only for demonstration
