@@ -12,14 +12,16 @@ class LoanRequest(WorkItem):
         self.value = value
         self.approved = False
         self.datetime = datetime.now()
-        self.analyst = analyst
         try:
-           self.rule_should_be_credit_analyst_instance(analyst)
            self.rule_should_be_bank_account_instance(account)
         except:
            raise AssociationError('Bank Account instance expected, instead %s passed' % type(account))
-        else:
-           self.account = account
+        try:
+           self.rule_should_be_credit_analyst_instance(analyst)
+        except:
+           raise AssociationError('Credit Analyst instance expected, instead %s passed' % type(analyst))
+        self.account = account
+        self.analyst = analyst
 
     #Rules import locally to avoid circular references
     @rule('association')
