@@ -1,4 +1,4 @@
-from should_dsl import should
+from should_dsl import should, ShouldNotSatisfied
 from domain.base.decorator import Decorator
 from domain.node.person import Person
 from domain.resource.operation import operation
@@ -19,7 +19,7 @@ class EmployeeDecorator(Decorator):
     def decorate(self, decorated):
         try:
             EmployeeDecorator.rule_should_be_person_instance(decorated)
-        except:
+        except ShouldNotSatisfied:
             raise AssociationError('Person instance expected, instead %s passed' % type(decorated))
         self.decorated = decorated
         self.decorated.decorate(self)

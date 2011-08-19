@@ -1,4 +1,4 @@
-from should_dsl import should
+from should_dsl import should, ShouldNotSatisfied
 from domain.base.decorator import Decorator
 from domain.node.machine import Machine
 from domain.resource.operation import operation
@@ -22,7 +22,7 @@ class BankAccountDecorator(Decorator):
     def decorate(self, decorated):
         try:
             BankAccountDecorator.rule_should_be_machine_instance(decorated)
-        except:
+        except ShouldNotSatisfied:
             raise AssociationError('Machine instance expected, instead %s passed' % type(decorated))
         self.decorated = decorated
         self.decorated.decorate(self)

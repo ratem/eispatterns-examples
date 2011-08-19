@@ -1,7 +1,8 @@
 Enterprise Information Systems Patterns Examples
 ================================================
 
-This project aims at presenting examples on how to use EIS Patterns framework
+This project aims at presenting examples on how to use EIS Patterns framework.
+Currently an ultra-simple Bank System is in development.
 
 Setup
 -----

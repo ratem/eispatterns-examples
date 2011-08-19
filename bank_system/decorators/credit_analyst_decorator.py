@@ -24,7 +24,7 @@ class CreditAnalystDecorator(Decorator):
     def decorate(self, decorated):
         try:
             CreditAnalystDecorator.rule_should_contain_employee_decorator(decorated)
-        except:
+        except ShouldNotSatisfied:
             raise AssociationError('Person must be previously decorated by Employee Decorator')
         self.decorated = decorated
         self.decorated.decorate(self)
