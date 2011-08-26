@@ -4,8 +4,6 @@ from domain.supportive.association_error import AssociationError
 from domain.resource.work_item import WorkItem
 from bank_system.rules.bank_system_rule_manager import BankSystemRuleManager
 
-#from bank_system.rules.rules_of_association import rule_should_be_bank_account_instance, rule_should_be_credit_analyst_instance
-
 
 class LoanRequest(WorkItem):
     ''' A Loan Request has a value, a date and time, and an associated analyst '''

@@ -23,3 +23,11 @@ class BankSystemRuleManager(RuleManager):
         except ShouldNotSatisfied: return False
         else: return True
 
+    @rule('association')
+    def should_be_instance_of_loan_request(self, associated):
+        '''Associated object should be instance of Loan Request'''
+        from bank_system.resources.loan_request import LoanRequest
+        try: associated |should| be_instance_of(LoanRequest)
+        except ShouldNotSatisfied: return False
+        else: return True
+
