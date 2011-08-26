@@ -18,8 +18,8 @@ class EmployeeDecoratorSpec(unittest.TestCase):
         self.an_employee_decorator.decorated |should| be(self.a_person)
         self.an_employee_decorator.decorated |should| have(1).decorators
         #should fail
-        non_person = 'I am not a person'
-        (self.an_employee_decorator.decorate, non_person) |should| throw(AssociationError)
+        decorate,_,_ = self.an_employee_decorator.decorate('I am not a person')
+        decorate |should| equal_to(False)
 
     def it_generates_register(self):
         self.an_employee_decorator.generate_register('123456-7')

@@ -5,7 +5,7 @@ from bank_system.decorators.bank_account_decorator import BankAccountDecorator
 from domain.supportive.association_error import AssociationError
 
 
-class bankAccountDecoratorSpec(unittest.TestCase):
+class BankAccountDecoratorSpec(unittest.TestCase):
 
     def setUp(self):
         self.a_bank_account_decorator = BankAccountDecorator('12345-6')
@@ -18,8 +18,8 @@ class bankAccountDecoratorSpec(unittest.TestCase):
         self.a_bank_account_decorator.decorated |should| be(self.a_machine)
         self.a_bank_account_decorator.decorated |should| have(1).decorators
         #should fail
-        non_machine = 'I am not a machine'
-        (self.a_bank_account_decorator.decorate, non_machine) |should| throw(AssociationError)
+        decorate, _, _ = self.a_bank_account_decorator.decorate('I am not a machine')
+        decorate |should| equal_to(False)
 
     def it_registers_a_credit(self):
         self.a_bank_account_decorator.balance = 100

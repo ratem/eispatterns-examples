@@ -6,34 +6,23 @@ from domain.resource.operation import operation
 from domain.supportive.rule import rule
 from domain.supportive.association_error import AssociationError
 from domain.supportive.contract_error import ContractError
-import domain.supportive.contract_matchers #import be_decorated_by
 from bank_system.resources.loan_request import LoanRequest
 from bank_system.resources.loan import Loan
 from bank_system.decorators.bank_account_decorator import BankAccountDecorator
 from bank_system.decorators.employee_decorator import EmployeeDecorator
+#from bank_system.rules.bank_system_rule_manager import BankSystemRuleManager
+from domain.supportive.rule_manager import RuleManager
 
 
 class CreditAnalystDecorator(Decorator):
     '''Credit Analyst'''
+    decoration_rules = ['should_have_employee_decorator']
+
     def __init__(self, register):
         Decorator.__init__(self)
         self.description = "An employee with credit analysis skills"
         self.register = register
         self.loan_limit = 0
-
-    def decorate(self, decorated):
-        try:
-            CreditAnalystDecorator.rule_should_contain_employee_decorator(decorated)
-        except ShouldNotSatisfied:
-            raise AssociationError('Person must be previously decorated by Employee Decorator')
-        self.decorated = decorated
-        self.decorated.decorate(self)
-
-    @classmethod
-    @rule('association')
-    def rule_should_contain_employee_decorator(self, decorated):
-        ''' Decorated object should be already decorated by Employee '''
-        decorated |should| be_decorated_by(EmployeeDecorator)
 
     @operation(category='business')
     def create_loan_request(self, account, value):

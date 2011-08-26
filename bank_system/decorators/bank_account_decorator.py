@@ -2,12 +2,14 @@ from should_dsl import should, ShouldNotSatisfied
 from domain.base.decorator import Decorator
 from domain.node.machine import Machine
 from domain.resource.operation import operation
-from domain.supportive.rule import rule
 from domain.supportive.association_error import AssociationError
+from bank_system.rules.bank_system_rule_manager import BankSystemRuleManager
 
 
 class BankAccountDecorator(Decorator):
     '''Bank Account'''
+    decoration_rules = ['should_be_instance_of_machine']
+
     def __init__(self, number):
         Decorator.__init__(self)
         self.description = "A bank account"
@@ -18,20 +20,6 @@ class BankAccountDecorator(Decorator):
         self.balance = 0
         self.restricted = False
         self.average_credit = 0
-
-    def decorate(self, decorated):
-        try:
-            BankAccountDecorator.rule_should_be_machine_instance(decorated)
-        except ShouldNotSatisfied:
-            raise AssociationError('Machine instance expected, instead %s passed' % type(decorated))
-        self.decorated = decorated
-        self.decorated.decorate(self)
-
-    @classmethod
-    @rule('association')
-    def rule_should_be_machine_instance(self, decorated):
-        ''' Decorated object should be a Machine '''
-        decorated |should| be_instance_of(Machine)
 
     @operation(category='business')
     def register_credit(self, value):

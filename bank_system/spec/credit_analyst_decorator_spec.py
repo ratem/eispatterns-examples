@@ -21,7 +21,8 @@ class CreditAnalystDecoratorSpec(unittest.TestCase):
 
     def it_decorates_a_person(self):
         #should fail
-        (self.a_credit_analyst_decorator.decorate, self.a_person) |should| throw(AssociationError)
+        decorate, _, _ = self.a_credit_analyst_decorator.decorate(self.a_person)
+        decorate |should| equal_to(False)
         #should work
         an_employee_decorator = EmployeeDecorator()
         an_employee_decorator.decorate(self.a_person)
