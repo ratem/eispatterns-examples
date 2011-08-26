@@ -6,7 +6,7 @@ from domain.resource.operation import operation
 from domain.supportive.rule import rule
 from domain.supportive.association_error import AssociationError
 from domain.supportive.contract_error import ContractError
-from domain.supportive.contract_matchers import be_decorated_by
+import domain.supportive.contract_matchers #import be_decorated_by
 from bank_system.resources.loan_request import LoanRequest
 from bank_system.resources.loan import Loan
 from bank_system.decorators.bank_account_decorator import BankAccountDecorator
@@ -35,12 +35,11 @@ class CreditAnalystDecorator(Decorator):
         ''' Decorated object should be already decorated by Employee '''
         decorated |should| be_decorated_by(EmployeeDecorator)
 
-    #creates a loan request
     @operation(category='business')
     def create_loan_request(self, account, value):
         ''' creates a loan request '''
         loan_request = LoanRequest(account, value, self)
-        #Places the loan_request in the node's input area
+        #places the loan_request in the node's input area
         self.decorated.input_area[loan_request.account.number] = loan_request
 
     #stupid credit analysis, only for demonstration

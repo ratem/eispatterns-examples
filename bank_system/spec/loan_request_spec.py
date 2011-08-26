@@ -14,9 +14,3 @@ class LoanRequestSpec(unittest.TestCase):
         (LoanRequest, an_account, 123, 'I am not an analyst') |should| throw(AssociationError)
         (LoanRequest, an_account, 123, an_analyst) |should_not| throw(AssociationError)
 
-        #With should-dsl I can avoid doing this:
-        #        try:
-        #            a_loan_request = LoanRequest('I am not an account', 123, an_analyst)
-        #        except AssociationError:
-        #            pass
-

@@ -23,3 +23,9 @@ def rule_should_be_credit_analyst_instance(analyst):
     from bank_system.decorators.credit_analyst_decorator import CreditAnalystDecorator
     analyst |should| be_instance_of(CreditAnalystDecorator)
 
+#@rule('association')
+#def rule_should_contain_employee_decorator(decorated):
+#    ''' Decorated object should be already decorated by Employee '''
+#    from bank_system.decorators.employee_decorator import EmployeeDecorator
+#    decorated |should| be_decorated_by(EmployeeDecorator)
+
