@@ -2,7 +2,7 @@ from datetime import datetime
 from should_dsl import should, ShouldNotSatisfied
 from domain.supportive.association_error import AssociationError
 from domain.resource.work_item import WorkItem
-from bank_system.rules.bank_system_rule_manager import BankSystemRuleManager
+from domain.supportive.rule_manager import RuleManager
 
 
 class LoanRequest(WorkItem):
@@ -12,10 +12,10 @@ class LoanRequest(WorkItem):
         self.value = value
         self.approved = False
         self.datetime = datetime.now()
-        if not BankSystemRuleManager.get_instance().check_rule('should_be_instance_of_bank_account', account):
+        if not RuleManager.get_instance().check_rule('should_be_instance_of_bank_account', account):
            raise AssociationError('Bank Account instance expected, instead %s passed' % type(account))
         self.account = account
-        if not BankSystemRuleManager.get_instance().check_rule('should_be_instance_of_credit_analyst', analyst):
+        if not RuleManager.get_instance().check_rule('should_be_instance_of_credit_analyst', analyst):
             raise AssociationError('Credit Analyst instance expected, instead %s passed' % type(analyst))
         self.analyst = analyst
 

@@ -1,16 +1,9 @@
 from should_dsl import should, ShouldNotSatisfied
 from domain.supportive.rule import rule
-from domain.supportive.rule_manager import RuleManager
+from domain.supportive.core_rules import CoreRules
 
 
-class BankSystemRuleManager(RuleManager):
-    def __init__(self):
-        RuleManager.__init__(self)
-
-    @classmethod
-    def get_instance(cls):
-        return cls()
-
+class BankSystemRuleBase(CoreRules):
     @rule('association')
     def should_be_instance_of_bank_account(self, associated):
         '''Associated object should be instance of Bank Account Decorator'''

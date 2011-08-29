@@ -10,8 +10,6 @@ from bank_system.resources.loan_request import LoanRequest
 from bank_system.resources.loan import Loan
 from bank_system.decorators.bank_account_decorator import BankAccountDecorator
 from bank_system.decorators.employee_decorator import EmployeeDecorator
-#from bank_system.rules.bank_system_rule_manager import BankSystemRuleManager
-from domain.supportive.rule_manager import RuleManager
 
 
 class CreditAnalystDecorator(Decorator):

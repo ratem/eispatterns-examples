@@ -17,17 +17,3 @@ class EmployeeDecorator(Decorator):
         ''' generates the register number for the employee '''
         self.register = register
 
-#    def decorate(self, decorated):
-#        try:
-#            EmployeeDecorator.rule_should_be_person_instance(decorated)
-#        except ShouldNotSatisfied:
-#            raise AssociationError('Person instance expected, instead %s passed' % type(decorated))
-#        self.decorated = decorated
-#        self.decorated.decorate(self)
-
-#    @classmethod
-#    @rule('association')
-#    def rule_should_be_person_instance(self, decorated):
-#        ''' Decorated object should be a Person '''
-#        decorated |should| be_instance_of(Person)
-

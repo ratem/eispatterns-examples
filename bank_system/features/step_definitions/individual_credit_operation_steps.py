@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from lettuce import step, world
+from lettuce import *
 from should_dsl import should
 from domain.node.person import Person
 from domain.node.machine import Machine
@@ -7,6 +7,8 @@ from domain.movement.process import Process
 from bank_system.decorators.credit_analyst_decorator import CreditAnalystDecorator
 from bank_system.decorators.bank_account_decorator import BankAccountDecorator
 from bank_system.decorators.employee_decorator import EmployeeDecorator
+from domain.supportive.rule_manager import RuleManager
+from bank_system.rules.bank_system_rule_base import BankSystemRuleBase
 from fluidity.machine import StateMachine, state, transition, InvalidTransition
 from xfluidity import StateMachineConfigurator
 from loan_process_template import LoanProcess
@@ -17,6 +19,11 @@ from loan_process_template import LoanProcess
 # will return an error such as "InvalidTransition: Cannot change from new_state
 #to new_state", given that after the first example the machine changes its state
 #
+
+#changes the default rule base
+@before.all
+def change_rule_base():
+    RuleManager.rule_base = BankSystemRuleBase()
 
 #Scenario Individual Customer asks for loan
 @step(u'Given I am a registered Credit Analyst')

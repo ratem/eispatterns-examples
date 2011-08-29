@@ -3,7 +3,6 @@ from domain.base.decorator import Decorator
 from domain.node.machine import Machine
 from domain.resource.operation import operation
 from domain.supportive.association_error import AssociationError
-from bank_system.rules.bank_system_rule_manager import BankSystemRuleManager
 
 
 class BankAccountDecorator(Decorator):
